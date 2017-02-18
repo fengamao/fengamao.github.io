@@ -4,19 +4,48 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>疯阿猫的博客</title>
+    <title>初识MapReduce,在Hadoop中的角色、工作原理、容错机制 | 疯阿猫的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="张俊仪">
     
 
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="疯阿猫的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+    <meta name="description" content="初识 MapReduce@[Big-Data, MapReduce, Hadoop]  
+
+
+背景
+
+在提到大数据的时候，经常提及的一个词是Hadoop。在我的第一个互联网金融行业的灾备项目里，用户是通过Hadoop获取Splunk服务器上的日志，分析之后产生对应用的实时监控。
+今天我想和大家分享的是大数据中的一个技术MapReduce，同时通过这次分享，帮助自己对整个Hadoop有一个大致的认识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识MapReduce,在Hadoop中的角色、工作原理、容错机制">
+<meta property="og:url" content="http://yoursite.com/2017/02/18/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/index.html">
 <meta property="og:site_name" content="疯阿猫的博客">
+<meta property="og:description" content="初识 MapReduce@[Big-Data, MapReduce, Hadoop]  
+
+
+背景
+
+在提到大数据的时候，经常提及的一个词是Hadoop。在我的第一个互联网金融行业的灾备项目里，用户是通过Hadoop获取Splunk服务器上的日志，分析之后产生对应用的实时监控。
+今天我想和大家分享的是大数据中的一个技术MapReduce，同时通过这次分享，帮助自己对整个Hadoop有一个大致的认识">
+<meta property="og:image" content="http://yoursite.com/./1487393834824.png">
+<meta property="og:image" content="http://yoursite.com/./1487394702072.png">
+<meta property="og:image" content="http://yoursite.com/./1487398253600.png">
+<meta property="og:image" content="http://yoursite.com/./1487413610468.png">
+<meta property="og:image" content="http://yoursite.com/./1487415435362.png">
+<meta property="og:image" content="http://yoursite.com/./1487417531122.png">
+<meta property="og:updated_time" content="2017-02-18T13:09:12.784Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="疯阿猫的博客">
+<meta name="twitter:title" content="初识MapReduce,在Hadoop中的角色、工作原理、容错机制">
+<meta name="twitter:description" content="初识 MapReduce@[Big-Data, MapReduce, Hadoop]  
+
+
+背景
+
+在提到大数据的时候，经常提及的一个词是Hadoop。在我的第一个互联网金融行业的灾备项目里，用户是通过Hadoop获取Splunk服务器上的日志，分析之后产生对应用的实时监控。
+今天我想和大家分享的是大数据中的一个技术MapReduce，同时通过这次分享，帮助自己对整个Hadoop有一个大致的认识">
+<meta name="twitter:image" content="http://yoursite.com/./1487393834824.png">
 
     
     <link rel="alternative" href="/atom.xml" title="疯阿猫的博客" type="application/atom+xml">
@@ -70,12 +99,10 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2017/02/18/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" title="初识MapReduce,在Hadoop中的角色、工作原理、容错机制" itemprop="url">初识MapReduce,在Hadoop中的角色、工作原理、容错机制</a>
@@ -89,9 +116,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <h1 id="初识-MapReduce"><a href="#初识-MapReduce" class="headerlink" title="初识 MapReduce"></a>初识 MapReduce</h1><p>@[Big-Data, MapReduce, Hadoop]  </p>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#初识-MapReduce"><span class="toc-number">1.</span> <span class="toc-text">初识 MapReduce</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-MapReduce在Hadoop生态系统中的位置"><span class="toc-number">1.1.</span> <span class="toc-text"> 一.  MapReduce在Hadoop生态系统中的位置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）Hadoop生态系统"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">（1）Hadoop生态系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）一套常见的Hadoop技术组合"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">（2）一套常见的Hadoop技术组合</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-MapReduce的工作原理"><span class="toc-number">1.2.</span> <span class="toc-text"> 二.  MapReduce的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）举一个例子，介绍MapReduce如何产生？作用是什么？"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">（1）举一个例子，介绍MapReduce如何产生？作用是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）MapReduce工作原理"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">（2）MapReduce工作原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-MapReduce的容错机制"><span class="toc-number">1.3.</span> <span class="toc-text"> 三.  MapReduce的容错机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一：JobTracker失败"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">第一：JobTracker失败</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二：TaskTracker失败"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">第二：TaskTracker失败</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三：运行任务失败"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">第三：运行任务失败</span></a></li></ol></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="初识-MapReduce"><a href="#初识-MapReduce" class="headerlink" title="初识 MapReduce"></a>初识 MapReduce</h1><p>@[Big-Data, MapReduce, Hadoop]  </p>
 <hr>
 <blockquote>
 <p><strong>背景</strong></p>
@@ -168,14 +202,9 @@
 <h4 id="第三：运行任务失败"><a href="#第三：运行任务失败" class="headerlink" title="第三：运行任务失败"></a>第三：运行任务失败</h4><p><strong>&gt;又分几种情况：</strong><br>（1）子任务失败<br>原因：子任务失败常见是map/reduce任务代码异常<br>处理方式：子任务JVM向它爸爸TaskTracker发送错误报告，这次任务标记failed，这个任务槽（一个TaskTracker有两个任务槽，这两个任务槽只能同时执行reduce或者map任务，不可以一个reduce一个map）就被释放，然后安排其他任务了<br>（2）任务挂起<br>处理方式：一般TaskTracker每隔10min会收到进度更新，超时了就标记失败failed<br><strong>它还可以通过一些参数控制任务调度，比如：如果一个任务失败超过4次（默认值），就不再被重试</strong></p>
 </blockquote>
 <p>终于讲完了，手已废，共勉</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -183,99 +212,43 @@
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-</div>
+	  <div data-url="http://yoursite.com/2017/02/18/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" data-title="初识MapReduce,在Hadoop中的角色、工作原理、容错机制 | 疯阿猫的博客" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/02/12/污秽出文雅，寒冷既风流/" title="污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎" itemprop="url">污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="张俊仪" target="_blank" itemprop="author">张俊仪</a>
-		
-  <p class="article-time">
-    <time datetime="2017-02-12T15:47:49.000Z" itemprop="datePublished"> Published 2017-02-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>光阴之美，不舍昼夜</p>
-<hr>
-<blockquote>
-<p><strong>阴翳之美的第一点，女人的色气</strong></p>
-</blockquote>
-<p>在《源氏物语》中有一段源氏公子经媒人介绍认识一位姑娘，在光线昏暗的房屋里与她初遇，听其声，嗅其香觉得十分满意。两人相好后，源氏公子也一直是夜里乘兴而来，清晨尽兴而去，又因为室内也是黑漆漆的，公子竟从来没见过美人的长相。有一天天气大好，服侍两人的老妈子劝夫人出来走走，阳光下源氏公子看到美人竟然鼻尖有些发红，就感到十分扫兴。</p>
-<p>现代女子当然不再像过去养在深闺人不识，而是更加西化与开放。</p>
-<p>有一次，我看某影楼艺术照合集，发现半露半遮的姑娘更有诱惑力。露的多，太刻意；露的少，不神秘。</p>
-<p>以上两个例子想来，比起赤条条、亮堂堂，些许含蓄与黑暗，更显“风流”与“色气”。 幽暗包裹一切不完美，尽留无限想象</p>
-<hr>
-<blockquote>
-<p><strong>除了建筑的幽暗之美、日本还有一个与“不洁”相关的文雅之事。</strong> </p>
-</blockquote>
-<p>《阴翳礼赞》中描写在明治维新之前，日本贵族流行过很长一段时间的“黑齿”。将铁片浸在醋中，制成黑色的染料，用羽毛刷在牙齿上，讲牙齿染黑。据说这还是十二世纪初期京都上流人生身份和地位的象征。在能剧中仍可以见到一些演员，头戴白面、红唇、黑齿的面具表演。</p>
-<p>除了“黑齿”，明治前还推崇过“虫牙”、“虎牙”，认为那样更加自然可爱。源氏物语有一段描写小皇子的美貌时说他牙长蛀，使他＂越发显得像女孩般可爱＂。他们认为白花花的一口牙，反而给人尖酸刻薄的感觉。</p>
-<p>明治维新以后，人们意识到“黑齿”、“虫齿”的不健康之处，开始以明眸皓齿为美。</p>
-<hr>
-<blockquote>
-<p><strong>有人将“不洁”当做“自然可爱”，历史上还有一个人人万万容不得一丝污秽，因此作出许多“文雅”之事，以求“眼不见为净”。</strong></p>
-</blockquote>
-<p>此人名叫倪云林，是个中国人，有重度洁癖。传言他将用香木建成空中厕所，下面填土，中间铺厚厚一层洁白的鹅毛。“凡便下，则鹅毛起覆之，不闻有秽气也。”每当如厕之时，“牡丹饼”坠落，鹅毛纷纷扬扬，好不诗意！</p>
-<p>有一次倪云林买了姑娘一夜，和自己困觉。令姑娘去洗澡，可是怎么洗他都不满意，总觉得有味道，于是再让她洗一遍，如此反复，直到东方既白，他已没有兴致。</p>
-<hr>
-<blockquote>
-<p><strong>如今现代家居也多采用西式抽水马桶，弃用壁炉，将油灯改为灯泡。使“光影”之美一扫而净，“不洁”之物无所遁形。这些有关阴翳的趣事，还能否听到。</strong></p>
-</blockquote>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/02/12/污秽出文雅，寒冷既风流/"  title="污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎">
+ <strong>下一篇：</strong><br/> 
+ <span>污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎
+</span>
+</a>
 </div>
 
-</footer>
+</nav>
 
+	
 
-    </article>
-
-
-
-
-
-
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#初识-MapReduce"><span class="toc-number">1.</span> <span class="toc-text">初识 MapReduce</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-MapReduce在Hadoop生态系统中的位置"><span class="toc-number">1.1.</span> <span class="toc-text"> 一.  MapReduce在Hadoop生态系统中的位置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）Hadoop生态系统"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">（1）Hadoop生态系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）一套常见的Hadoop技术组合"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">（2）一套常见的Hadoop技术组合</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-MapReduce的工作原理"><span class="toc-number">1.2.</span> <span class="toc-text"> 二.  MapReduce的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）举一个例子，介绍MapReduce如何产生？作用是什么？"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">（1）举一个例子，介绍MapReduce如何产生？作用是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）MapReduce工作原理"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">（2）MapReduce工作原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-MapReduce的容错机制"><span class="toc-number">1.3.</span> <span class="toc-text"> 三.  MapReduce的容错机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一：JobTracker失败"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">第一：JobTracker失败</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二：TaskTracker失败"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">第二：TaskTracker失败</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三：运行任务失败"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">第三：运行任务失败</span></a></li></ol></li></ol></li></ol></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
@@ -406,12 +379,89 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
 
 
 
@@ -482,4 +532,4 @@ var _hmt = _hmt || [];
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
