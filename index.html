@@ -78,21 +78,20 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/18/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" title="初识MapReduce,在Hadoop中的角色、工作原理、容错机制" itemprop="url">初识MapReduce,在Hadoop中的角色、工作原理、容错机制</a>
+      <a href="/2017/02/12/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" title="污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎" itemprop="url">污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="张俊仪" target="_blank" itemprop="author">张俊仪</a>
 		
   <p class="article-time">
-    <time datetime="2017-02-18T12:59:02.000Z" itemprop="datePublished"> Published 2017-02-18</time>
+    <time datetime="2017-02-12T15:47:49.000Z" itemprop="datePublished"> Published 2017-02-12</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h1 id="初识-MapReduce"><a href="#初识-MapReduce" class="headerlink" title="初识 MapReduce"></a>初识 MapReduce</h1><p>@[Big-Data, MapReduce, Hadoop]  </p>
-<hr>
+        <hr>
 <blockquote>
 <p><strong>背景</strong></p>
 </blockquote>
@@ -111,28 +110,28 @@
 <thead>
 <tr>
 <th>生态系统：</th>
-<th>1、森林生态系统</th>
-<th>2、 Hadoop</th>
+<th style="text-align:center">1、森林生态系统</th>
+<th style="text-align:right">2、 Hadoop</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>生物多样性</td>
-<td>乔木、苔藓、蕨类等</td>
-<td>多种技术统称，如Flume、QFS、HDFS等</td>
+<td style="text-align:center">乔木、苔藓、蕨类等</td>
+<td style="text-align:right">多种技术统称，如Flume、QFS、HDFS等</td>
 </tr>
 <tr>
 <td>平衡协调</td>
-<td>多种生物协调</td>
-<td>几种技术共同处理超过单机尺度的数据</td>
+<td style="text-align:center">多种生物协调</td>
+<td style="text-align:right">几种技术共同处理超过单机尺度的数据</td>
 </tr>
 </tbody>
 </table>
-<p> <img src="./1487393834824.png" alt="@Hadoop生态系统 | center "></p>
+<p> <img src="./images/1487393834824.png" alt="@Hadoop生态系统 | center "></p>
 <h4 id="（2）一套常见的Hadoop技术组合"><a href="#（2）一套常见的Hadoop技术组合" class="headerlink" title="（2）一套常见的Hadoop技术组合"></a>（2）一套常见的Hadoop技术组合</h4><p>大数据，首先你要存放大数据。<strong>最基础的是HDFS</strong>，它的作用是为海量的数据提供了存储。数据可能存放在成千上百台机器上，但是用户通过HDFS，看到的可能只有几个文件。类似于我们在PC电脑上找一个文件D:/text.xls，作为用户不需要关系文件到底被存放在哪一个磁道和扇区上。通过HDFS，用户存/取数据也不需要关心海量数据存放在哪里，从哪里取得；</p>
 <p>解决了数据存取问题以后，<strong>需要MapReduce进行数据处理</strong>。具体原理在<strong>下文</strong>；<br>然后人们又发明了Hive、Pig等高级编程语言提高MapReduce的易读程度，简单的几行代码就可以达到MapReduce几百行的处理效果。</p>
 <p>同时也需要<strong>zookeeper进行协调</strong>。举一个关于它的使用场景例子：军队里有一个将军来指挥战斗，但是假如将军死了，或者嗓子疼不能指挥战斗，岂不是要吃败仗。这时候，我们可以准备4个将军，每次打仗前选一个将军，这个死了，还可以选另一个。zookeeper的作用就是选leader，让大家都听leader</p>
-<p>具体更多的内容，网上有些资料特别好，在这里就不细说了。<br><a href="http://blog.csdn.net/jiangliqing1234/article/details/39344221" target="_blank" rel="external"> Hadoop中Zookeeper，HDFS，Hbase，Hive，Pig的概念介绍与比较</a><br><a href="https://www.zhihu.com/question/27974418" target="_blank" rel="external">如何用形象的比喻描述大数据的技术生态？Hadoop、Hive、Spark 之间是什么关系？</a><br><img src="./1487394702072.png" alt="@一套Hadoop技术的组合|center"></p>
+<p>具体更多的内容，网上有些资料特别好，在这里就不细说了。<br><a href="http://blog.csdn.net/jiangliqing1234/article/details/39344221" target="_blank" rel="external"> Hadoop中Zookeeper，HDFS，Hbase，Hive，Pig的概念介绍与比较</a><br><a href="https://www.zhihu.com/question/27974418" target="_blank" rel="external">如何用形象的比喻描述大数据的技术生态？Hadoop、Hive、Spark 之间是什么关系？</a><br><img src="./images/1487394702072.png" alt="@一套Hadoop技术的组合|center"></p>
 <h2 id="二-MapReduce的工作原理"><a href="#二-MapReduce的工作原理" class="headerlink" title=" 二.  MapReduce的工作原理"></a> 二.  MapReduce的工作原理</h2><h4 id="（1）举一个例子，介绍MapReduce如何产生？作用是什么？"><a href="#（1）举一个例子，介绍MapReduce如何产生？作用是什么？" class="headerlink" title="（1）举一个例子，介绍MapReduce如何产生？作用是什么？"></a>（1）举一个例子，介绍MapReduce如何产生？作用是什么？</h4><blockquote>
 <p>问题：统计过去10年计算机论文出现最多的几个单词</p>
 </blockquote>
@@ -143,16 +142,51 @@
 <li>如何并行计算？<br>毕竟机器性能有好有坏，A机器10min算完，B机器2min就算完了，总不能等在那里吧，多浪费。</li>
 <li>如何处理错误？</li>
 </ol>
-<p>当数据量非常多的时候，因为上面3个问题产生的代码量远远大于遍历程序本身的代码量。由此产生了MapReduce框架。<br>它的作用就是，程序员通过使用MapReduce框架，不用关心框架内部【分发数据、并行计算、错误处理等】如何实现。<br><img src="./1487398253600.png" alt="@举个栗子"></p>
-<h4 id="（2）MapReduce工作原理"><a href="#（2）MapReduce工作原理" class="headerlink" title="（2）MapReduce工作原理"></a>（2）MapReduce工作原理</h4><p>①<strong>分片：</strong>MapReduce把user program的输入文件划分为M份（M为用户定义），如下图中被分为4份，split0,1,2,3<br>②<strong>fork：</strong>用户程序在集群上创建大量的程序副本<br>③<strong>分配任务：</strong>由master机器来安排哪些worker机器处理map工作，哪些worker机器处理reduce工作<br>④<strong>Map读:</strong>负责Map的worker读取分片，产生一对中间值<br>⑤<strong>本地写，告知master位置：</strong>中间值定期存在本地磁盘，并且把存放位置告知master<br>⑥<strong>Reduce读：</strong>负责Reduce的worker读取本地磁盘中的中间值，对值进行一定的排序经过Reduce()函数处理，产生最后输出文件<br><img src="./1487413610468.png" alt="Alt text"></p>
+<p>当数据量非常多的时候，因为上面3个问题产生的代码量远远大于遍历程序本身的代码量。由此产生了MapReduce框架。<br>它的作用就是，程序员通过使用MapReduce框架，不用关心框架内部【分发数据、并行计算、错误处理等】如何实现。<br><img src="./images/1487398253600.png" alt="@举个栗子"></p>
+<h4 id="（2）MapReduce工作原理"><a href="#（2）MapReduce工作原理" class="headerlink" title="（2）MapReduce工作原理"></a>（2）MapReduce工作原理</h4><p>①<strong>分片：</strong>MapReduce把user program的输入文件划分为M份（M为用户定义），如下图中被分为4份，split0,1,2,3<br>②<strong>fork：</strong>用户程序在集群上创建大量的程序副本<br>③<strong>分配任务：</strong>由master机器来安排哪些worker机器处理map工作，哪些worker机器处理reduce工作<br>④<strong>Map读:</strong>负责Map的worker读取分片，产生一对中间值<br>⑤<strong>本地写，告知master位置：</strong>中间值定期存在本地磁盘，并且把存放位置告知master<br>⑥<strong>Reduce读：</strong>负责Reduce的worker读取本地磁盘中的中间值，对值进行一定的排序经过Reduce()函数处理，产生最后输出文件<br><img src="./images/1487413610468.png" alt="Alt text"></p>
 <blockquote>
 <p>从番茄酱的做法看MapReduce如何工作</p>
 </blockquote>
-<p>印度Java程序员Shekhar Gulati的博客<a href="http://www.pixelstech.net/article/1314519773-How-I-explained-MapReduce-to-my-Wife" target="_blank" rel="external">How I explained MapReduce to my Wife?</a>非常通俗地阐述了MapReduce的概念。</p>
 <p>如果我们想做番茄生菜三明治，有这些食材：【1，生菜】【2，面包】【3，鸡蛋】【4，番茄】。我们来通过三明治的做法来通俗的理解一下MapReduce的工作原理。</p>
-<p>①<strong>分食材 <del>分片</del>：</strong> <strong>把厨房里的食材分成几堆</strong> <del>把user program的输入文件划分为M份（M为用户定义）</del><br>②<strong>下发食谱 <del>fork</del>：</strong> <strong>告诉每一个厨师我们现在要做番茄生菜三明治</strong> <del>用户程序在集群上创建大量的程序副本</del><br>③<strong>分配任务：</strong> <strong>由厨师长</strong> <del>master</del>  <strong>安排哪些人</strong> <del>worker机器</del> <strong>切菜</strong> <del>处理map工作</del><strong>，哪些人</strong> <del>worker机器</del>  <strong>配菜</strong>  <del>处理reduce工作</del><br>④<strong>切菜工 <del>Map</del>:</strong> <strong>负责切生菜、番茄、面包，煎鸡蛋，</strong><del>Map的worker读取分片</del> <strong>产生生菜丝、番茄片、面包片、荷包蛋等中间食材</strong> <del>一对中间值</del><br>⑤<strong>放冰箱，告诉厨师长食材位置 <del>本地写，告知master位置</del>：</strong> <strong>将中间食材</strong> <del>中间值</del> <strong>定期放在冰箱里</strong> <del>存在本地磁盘</del><strong>，并且把存放位置告知厨师长</strong> <del>master</del><br>⑥<strong>配菜工 <del>Reduce</del>：</strong> <strong>负责从冰箱里取出中间食材</strong>  <del>从Reduce的worker读取本地磁盘中的中间值</del><strong>，对食材进行一定的排序经过制作</strong> <del>Reduce()函数处理</del><strong>，产生最后的番茄生菜三明治</strong> <del>输出文件</del><br>| MapReduce     |   番茄三明治  |<br>| :——–              | ——–            :|<br>| 分片                   | 分食材             |<br>| fork                   | 下发食谱        |<br>| 分配任务           | 分配任务        |<br>| Map                   | 切菜工            |<br>|本地写，告知master位置 | 放冰箱，告诉厨师长食材位置|<br>| Reduce               | 配菜工            |<br><img src="./1487415435362.png" alt="@番茄生菜三明治"></p>
+<p>①<strong>分食材 <del>分片</del>：</strong> <strong>把厨房里的食材分成几堆</strong> <del>把user program的输入文件划分为M份（M为用户定义）</del><br>②<strong>下发食谱 <del>fork</del>：</strong> <strong>告诉每一个厨师我们现在要做番茄生菜三明治</strong> <del>用户程序在集群上创建大量的程序副本</del><br>③<strong>分配任务：</strong> <strong>由厨师长</strong> <del>master</del>  <strong>安排哪些人</strong> <del>worker机器</del> <strong>切菜</strong> <del>处理map工作</del><strong>，哪些人</strong> <del>worker机器</del>  <strong>配菜</strong>  <del>处理reduce工作</del><br>④<strong>切菜工 <del>Map</del>:</strong> <strong>负责切生菜、番茄、面包，煎鸡蛋，</strong><del>Map的worker读取分片</del> <strong>产生生菜丝、番茄片、面包片、荷包蛋等中间食材</strong> <del>一对中间值</del><br>⑤<strong>放冰箱，告诉厨师长食材位置 <del>本地写，告知master位置</del>：</strong> <strong>将中间食材</strong> <del>中间值</del> <strong>定期放在冰箱里</strong> <del>存在本地磁盘</del><strong>，并且把存放位置告知厨师长</strong> <del>master</del><br>⑥<strong>配菜工 <del>Reduce</del>：</strong> <strong>负责从冰箱里取出中间食材</strong>  <del>从Reduce的worker读取本地磁盘中的中间值</del><strong>，对食材进行一定的排序经过制作</strong> <del>Reduce()函数处理</del><strong>，产生最后的番茄生菜三明治</strong> <del>输出文件</del></p>
+<table>
+<thead>
+<tr>
+<th>MapReduce</th>
+<th style="text-align:center">番茄三明治</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分片</td>
+<td style="text-align:center">分食材</td>
+</tr>
+<tr>
+<td>fork</td>
+<td style="text-align:center">下发食谱</td>
+</tr>
+<tr>
+<td>分配任务</td>
+<td style="text-align:center">分配任务</td>
+</tr>
+<tr>
+<td>Map</td>
+<td style="text-align:center">切菜工</td>
+</tr>
+<tr>
+<td>本地写，告知master位置</td>
+<td style="text-align:center">放冰箱，告诉厨师长食材位置</td>
+</tr>
+<tr>
+<td>Reduce</td>
+<td style="text-align:center">配菜工</td>
+</tr>
+</tbody>
+</table>
+<p><img src="./images/1487415435362.png" alt="@番茄生菜三明治"></p>
+<p>印度Java程序员Shekhar Gulati的博客<a href="http://www.pixelstech.net/article/1314519773-How-I-explained-MapReduce-to-my-Wife" target="_blank" rel="external">How I explained MapReduce to my Wife?</a>非常通俗地阐述了MapReduce的概念。</p>
 <blockquote>
-<p>master也就是MapReduce中的JobTracker，work也就是MapReduce中TaskTracker<br>它们的作用如下：<br><img src="./1487417531122.png" alt="Alt text"></p>
+<p>master也就是MapReduce中的JobTracker，work也就是MapReduce中TaskTracker<br>它们的作用如下：<br><img src="./images/1487417531122.png" alt="Alt text"></p>
 </blockquote>
 <h2 id="三-MapReduce的容错机制"><a href="#三-MapReduce的容错机制" class="headerlink" title=" 三.  MapReduce的容错机制"></a> 三.  MapReduce的容错机制</h2><p>上面介绍了MapReduce在Hadoop中的地位，以及它的工作机制，还用了一个形象的比喻。现在要介绍一下它的容错机制，我们知道海量数据的处理过程中必然会出现一些错误，MapReduce怎么确保在一定时间内给出计算结果呢？<br>首先，它允许一定比例任务的失败。举个例子，假如统计全球吸烟人数，漏掉几十个人是可以允许的。</p>
 <p>其次，通过查阅<a href="https://book.douban.com/subject/6523762/" target="_blank" rel="external">《Hadoop权威指南》</a>发现经典MapReduce中的失败有三种：运行任务失败、JobTracker失败、 TaskTracker失败。</p>
