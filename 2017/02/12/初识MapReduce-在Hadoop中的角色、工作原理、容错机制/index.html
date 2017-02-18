@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎 | 疯阿猫的博客</title>
+    <title>初识MapReduce————在Hadoop中的角色、工作原理、容错机制 | 疯阿猫的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="张俊仪">
@@ -18,9 +18,9 @@
 
 文章分三个部分：
 
-MapReduce在Ha">
+MapReduce在Had">
 <meta property="og:type" content="article">
-<meta property="og:title" content="污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎">
+<meta property="og:title" content="初识MapReduce————在Hadoop中的角色、工作原理、容错机制">
 <meta property="og:url" content="http://yoursite.com/2017/02/12/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/index.html">
 <meta property="og:site_name" content="疯阿猫的博客">
 <meta property="og:description" content="背景
@@ -30,16 +30,16 @@ MapReduce在Ha">
 
 文章分三个部分：
 
-MapReduce在Ha">
+MapReduce在Had">
 <meta property="og:image" content="http://yoursite.com/./images/1487393834824.png">
 <meta property="og:image" content="http://yoursite.com/./images/1487394702072.png">
 <meta property="og:image" content="http://yoursite.com/./images/1487398253600.png">
 <meta property="og:image" content="http://yoursite.com/./images/1487413610468.png">
 <meta property="og:image" content="http://yoursite.com/./images/1487415435362.png">
 <meta property="og:image" content="http://yoursite.com/./images/1487417531122.png">
-<meta property="og:updated_time" content="2017-02-18T14:14:49.194Z">
+<meta property="og:updated_time" content="2017-02-18T14:37:20.451Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎">
+<meta name="twitter:title" content="初识MapReduce————在Hadoop中的角色、工作原理、容错机制">
 <meta name="twitter:description" content="背景
 
 在提到大数据的时候，经常提及的一个词是Hadoop。在我的第一个互联网金融行业的灾备项目里，用户是通过Hadoop获取Splunk服务器上的日志，分析之后产生对应用的实时监控。
@@ -47,7 +47,7 @@ MapReduce在Ha">
 
 文章分三个部分：
 
-MapReduce在Ha">
+MapReduce在Had">
 <meta name="twitter:image" content="http://yoursite.com/./images/1487393834824.png">
 
     
@@ -108,7 +108,7 @@ MapReduce在Ha">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/12/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" title="污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎" itemprop="url">污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎</a>
+      <a href="/2017/02/12/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" title="初识MapReduce————在Hadoop中的角色、工作原理、容错机制" itemprop="url">初识MapReduce————在Hadoop中的角色、工作原理、容错机制</a>
   </h1>
   <p class="article-author">By
        
@@ -128,8 +128,7 @@ MapReduce在Ha">
 		
 		</div>
 		
-		<hr>
-<blockquote>
+		<blockquote>
 <p><strong>背景</strong></p>
 </blockquote>
 <p>在提到大数据的时候，经常提及的一个词是Hadoop。在我的第一个互联网金融行业的灾备项目里，用户是通过Hadoop获取Splunk服务器上的日志，分析之后产生对应用的实时监控。</p>
@@ -147,20 +146,20 @@ MapReduce在Ha">
 <thead>
 <tr>
 <th>生态系统：</th>
-<th style="text-align:center">1、森林生态系统</th>
-<th style="text-align:right">2、 Hadoop</th>
+<th style="text-align:right">1、森林生态系统</th>
+<th style="text-align:center">2、 Hadoop</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>生物多样性</td>
-<td style="text-align:center">乔木、苔藓、蕨类等</td>
-<td style="text-align:right">多种技术统称，如Flume、QFS、HDFS等</td>
+<td style="text-align:right">乔木、苔藓、蕨类等</td>
+<td style="text-align:center">多种技术统称，如Flume、QFS、HDFS等</td>
 </tr>
 <tr>
 <td>平衡协调</td>
-<td style="text-align:center">多种生物协调</td>
-<td style="text-align:right">几种技术共同处理超过单机尺度的数据</td>
+<td style="text-align:right">多种生物协调</td>
+<td style="text-align:center">几种技术共同处理超过单机尺度的数据</td>
 </tr>
 </tbody>
 </table>
@@ -190,33 +189,33 @@ MapReduce在Ha">
 <thead>
 <tr>
 <th>MapReduce</th>
-<th style="text-align:center">番茄三明治</th>
+<th style="text-align:right">番茄三明治</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>分片</td>
-<td style="text-align:center">分食材</td>
+<td style="text-align:right">分食材</td>
 </tr>
 <tr>
 <td>fork</td>
-<td style="text-align:center">下发食谱</td>
+<td style="text-align:right">下发食谱</td>
 </tr>
 <tr>
 <td>分配任务</td>
-<td style="text-align:center">分配任务</td>
+<td style="text-align:right">分配任务</td>
 </tr>
 <tr>
 <td>Map</td>
-<td style="text-align:center">切菜工</td>
+<td style="text-align:right">切菜工</td>
 </tr>
 <tr>
 <td>本地写，告知master位置</td>
-<td style="text-align:center">放冰箱，告诉厨师长食材位置</td>
+<td style="text-align:right">放冰箱，告诉厨师长食材位置</td>
 </tr>
 <tr>
 <td>Reduce</td>
-<td style="text-align:center">配菜工</td>
+<td style="text-align:right">配菜工</td>
 </tr>
 </tbody>
 </table>
@@ -251,7 +250,7 @@ MapReduce在Ha">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2017/02/12/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" data-title="污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎 | 疯阿猫的博客" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2017/02/12/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" data-title="初识MapReduce————在Hadoop中的角色、工作原理、容错机制 | 疯阿猫的博客" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>

@@ -78,7 +78,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/12/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" title="污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎" itemprop="url">污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎</a>
+      <a href="/2017/02/12/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" title="初识MapReduce————在Hadoop中的角色、工作原理、容错机制" itemprop="url">初识MapReduce————在Hadoop中的角色、工作原理、容错机制</a>
   </h1>
   <p class="article-author">By
        
@@ -91,8 +91,7 @@
 </header>
     <div class="article-content">
         
-        <hr>
-<blockquote>
+        <blockquote>
 <p><strong>背景</strong></p>
 </blockquote>
 <p>在提到大数据的时候，经常提及的一个词是Hadoop。在我的第一个互联网金融行业的灾备项目里，用户是通过Hadoop获取Splunk服务器上的日志，分析之后产生对应用的实时监控。</p>
@@ -110,20 +109,20 @@
 <thead>
 <tr>
 <th>生态系统：</th>
-<th style="text-align:center">1、森林生态系统</th>
-<th style="text-align:right">2、 Hadoop</th>
+<th style="text-align:right">1、森林生态系统</th>
+<th style="text-align:center">2、 Hadoop</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>生物多样性</td>
-<td style="text-align:center">乔木、苔藓、蕨类等</td>
-<td style="text-align:right">多种技术统称，如Flume、QFS、HDFS等</td>
+<td style="text-align:right">乔木、苔藓、蕨类等</td>
+<td style="text-align:center">多种技术统称，如Flume、QFS、HDFS等</td>
 </tr>
 <tr>
 <td>平衡协调</td>
-<td style="text-align:center">多种生物协调</td>
-<td style="text-align:right">几种技术共同处理超过单机尺度的数据</td>
+<td style="text-align:right">多种生物协调</td>
+<td style="text-align:center">几种技术共同处理超过单机尺度的数据</td>
 </tr>
 </tbody>
 </table>
@@ -153,33 +152,33 @@
 <thead>
 <tr>
 <th>MapReduce</th>
-<th style="text-align:center">番茄三明治</th>
+<th style="text-align:right">番茄三明治</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>分片</td>
-<td style="text-align:center">分食材</td>
+<td style="text-align:right">分食材</td>
 </tr>
 <tr>
 <td>fork</td>
-<td style="text-align:center">下发食谱</td>
+<td style="text-align:right">下发食谱</td>
 </tr>
 <tr>
 <td>分配任务</td>
-<td style="text-align:center">分配任务</td>
+<td style="text-align:right">分配任务</td>
 </tr>
 <tr>
 <td>Map</td>
-<td style="text-align:center">切菜工</td>
+<td style="text-align:right">切菜工</td>
 </tr>
 <tr>
 <td>本地写，告知master位置</td>
-<td style="text-align:center">放冰箱，告诉厨师长食材位置</td>
+<td style="text-align:right">放冰箱，告诉厨师长食材位置</td>
 </tr>
 <tr>
 <td>Reduce</td>
-<td style="text-align:center">配菜工</td>
+<td style="text-align:right">配菜工</td>
 </tr>
 </tbody>
 </table>
