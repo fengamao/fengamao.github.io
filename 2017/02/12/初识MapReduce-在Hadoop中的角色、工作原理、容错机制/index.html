@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>初识MapReduce————在Hadoop中的角色、工作原理、容错机制 | 疯阿猫的博客</title>
+    <title>初识MapReduce-在Hadoop中的角色、工作原理、容错机制 | 疯阿猫的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="张俊仪">
@@ -20,7 +20,7 @@
 
 MapReduce在Had">
 <meta property="og:type" content="article">
-<meta property="og:title" content="初识MapReduce————在Hadoop中的角色、工作原理、容错机制">
+<meta property="og:title" content="初识MapReduce-在Hadoop中的角色、工作原理、容错机制">
 <meta property="og:url" content="http://yoursite.com/2017/02/12/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/index.html">
 <meta property="og:site_name" content="疯阿猫的博客">
 <meta property="og:description" content="背景
@@ -37,9 +37,9 @@ MapReduce在Had">
 <meta property="og:image" content="http://yoursite.com/./images/1487413610468.png">
 <meta property="og:image" content="http://yoursite.com/./images/1487415435362.png">
 <meta property="og:image" content="http://yoursite.com/./images/1487417531122.png">
-<meta property="og:updated_time" content="2017-02-18T14:40:24.906Z">
+<meta property="og:updated_time" content="2017-02-18T14:47:23.002Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="初识MapReduce————在Hadoop中的角色、工作原理、容错机制">
+<meta name="twitter:title" content="初识MapReduce-在Hadoop中的角色、工作原理、容错机制">
 <meta name="twitter:description" content="背景
 
 在提到大数据的时候，经常提及的一个词是Hadoop。在我的第一个互联网金融行业的灾备项目里，用户是通过Hadoop获取Splunk服务器上的日志，分析之后产生对应用的实时监控。
@@ -76,7 +76,7 @@ MapReduce在Had">
 				<h1 class="site-name"><a href="/" title="疯阿猫的博客">疯阿猫的博客</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -92,7 +92,7 @@ MapReduce在Had">
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:yoursite.com">
 					</form>
 					
@@ -108,21 +108,21 @@ MapReduce在Had">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/12/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" title="初识MapReduce————在Hadoop中的角色、工作原理、容错机制" itemprop="url">初识MapReduce————在Hadoop中的角色、工作原理、容错机制</a>
+      <a href="/2017/02/12/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" title="初识MapReduce-在Hadoop中的角色、工作原理、容错机制" itemprop="url">初识MapReduce-在Hadoop中的角色、工作原理、容错机制</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="张俊仪" target="_blank" itemprop="author">张俊仪</a>
 		
   <p class="article-time">
-    <time datetime="2017-02-12T15:47:49.000Z" itemprop="datePublished"> Published 2017-02-12</time>
+    <time datetime="2017-02-12T15:47:49.000Z" itemprop="datePublished"> 发表于 2017-02-12</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目录</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-MapReduce在Hadoop生态系统中的位置"><span class="toc-number">1.</span> <span class="toc-text"> 一.  MapReduce在Hadoop生态系统中的位置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）Hadoop生态系统"><span class="toc-number">1.0.1.</span> <span class="toc-text">（1）Hadoop生态系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）一套常见的Hadoop技术组合"><span class="toc-number">1.0.2.</span> <span class="toc-text">（2）一套常见的Hadoop技术组合</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-MapReduce的工作原理"><span class="toc-number">2.</span> <span class="toc-text"> 二.  MapReduce的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）举一个例子，介绍MapReduce如何产生？作用是什么？"><span class="toc-number">2.0.1.</span> <span class="toc-text">（1）举一个例子，介绍MapReduce如何产生？作用是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）MapReduce工作原理"><span class="toc-number">2.0.2.</span> <span class="toc-text">（2）MapReduce工作原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-MapReduce的容错机制"><span class="toc-number">3.</span> <span class="toc-text"> 三.  MapReduce的容错机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一：JobTracker失败"><span class="toc-number">3.0.1.</span> <span class="toc-text">第一：JobTracker失败</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二：TaskTracker失败"><span class="toc-number">3.0.2.</span> <span class="toc-text">第二：TaskTracker失败</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三：运行任务失败"><span class="toc-number">3.0.3.</span> <span class="toc-text">第三：运行任务失败</span></a></li></ol></li></ol></li></ol>
 		
@@ -250,7 +250,7 @@ MapReduce在Had">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2017/02/12/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" data-title="初识MapReduce————在Hadoop中的角色、工作原理、容错机制 | 疯阿猫的博客" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2017/02/12/初识MapReduce-在Hadoop中的角色、工作原理、容错机制/" data-title="初识MapReduce-在Hadoop中的角色、工作原理、容错机制 | 疯阿猫的博客" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -263,6 +263,14 @@ MapReduce在Had">
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2017/02/18/text/" title="text">
+  <strong>上一篇：</strong><br/>
+  <span>
+  text</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2017/02/12/污秽出文雅，寒冷既风流/"  title="污秽出文雅，寒冷既风流————《阴翳礼赞》谷崎润一郎">
@@ -277,17 +285,17 @@ MapReduce在Had">
 	
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目录</strong>
  
  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-MapReduce在Hadoop生态系统中的位置"><span class="toc-number">1.</span> <span class="toc-text"> 一.  MapReduce在Hadoop生态系统中的位置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）Hadoop生态系统"><span class="toc-number">1.0.1.</span> <span class="toc-text">（1）Hadoop生态系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）一套常见的Hadoop技术组合"><span class="toc-number">1.0.2.</span> <span class="toc-text">（2）一套常见的Hadoop技术组合</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-MapReduce的工作原理"><span class="toc-number">2.</span> <span class="toc-text"> 二.  MapReduce的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）举一个例子，介绍MapReduce如何产生？作用是什么？"><span class="toc-number">2.0.1.</span> <span class="toc-text">（1）举一个例子，介绍MapReduce如何产生？作用是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）MapReduce工作原理"><span class="toc-number">2.0.2.</span> <span class="toc-text">（2）MapReduce工作原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-MapReduce的容错机制"><span class="toc-number">3.</span> <span class="toc-text"> 三.  MapReduce的容错机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一：JobTracker失败"><span class="toc-number">3.0.1.</span> <span class="toc-text">第一：JobTracker失败</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二：TaskTracker失败"><span class="toc-number">3.0.2.</span> <span class="toc-text">第二：TaskTracker失败</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三：运行任务失败"><span class="toc-number">3.0.3.</span> <span class="toc-text">第三：运行任务失败</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -298,7 +306,7 @@ MapReduce在Had">
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -320,11 +328,11 @@ MapReduce在Had">
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">Weibo</p>
+  <p class="asidetitle">新浪微博</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
 </div>
 
@@ -551,7 +559,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
